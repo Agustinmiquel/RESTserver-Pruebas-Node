@@ -1,5 +1,5 @@
 const {response, request} = require('express');
-
+const Usuarios = require('../models/usuarios');
 
 const usuariosGet = (req = request, res = response)=>{
 
@@ -12,9 +12,16 @@ const usuariosGet = (req = request, res = response)=>{
     })
 }; 
 
-const usuariosPost = (req,res = response)=>{
+const usuariosPost = async (req,res = response)=>{
+
+    const body = req.body;
+    const user = new Usuarios(body); 
+
+    await user.save(); //para guardar en la base de datos
+
     res.json({
-        msg:'Post API - controllador'
+        msg:'Post API - controllador',
+        user
     })
 }; 
 
